@@ -12,6 +12,7 @@
  * ----------------------------
  * 2강       강병운     정적
  * 3강       강병운     동적
+ * 4강       강병운     바인딩
  * 
  */
 
@@ -20,20 +21,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'; // props를 사용하려면 prop-types라는 패키지를 추가해야한다.
 
 class Basic extends Component { //컴포넌트 이름 : Basic => 부모컴포넌트에서 <Basic />으로 사용할 수 있다.
-  constructor(){
-    super();
+  constructor(...args){
+    super(...args);
     this.state = { //해당 컴포넌트에만 적용되는 상태
       hidden : false
     };
+    this.onClickButton = this.onClickButton.bind(this);
   }
 
+  onClickButton(){
+    this.setState(() => ( { hidden : true } ));
+  }
 
   render() { //컴포넌트마다 render메소드를 가지고, 이 메소드가 반환하는 것이 실제로 보여지는 DOM이 됩니다.
     return (
       <div>
         <span>저는 {this.props.lang} 전문 {this.props.name}입니다!</span>
         {!this.state.hidden && <span>{this.props.birth}년에 태어났습니다.</span>}
-        <button onClick={() => this.setState(() => ({ hidden: true }))}>숨기기</button>
+        <button onClick={this.onClickButton}>숨기기</button>
       </div>
     );
   }
